@@ -1,21 +1,32 @@
-#nodeos run(deafult)
+#nodeos run
+1. default
 docker run --name nodeos -p 8888:8888 -p 9876:9876 -it eosio/eos /bin/bash
 
-#nodeos run(-v)
+2. -v
 docker run --name nodeos -p 8888:8888 -p 9876:9876 -it -v /tmp/work:/work -v /tmp/eosio/data:/mnt/dev/data -v /tmp/eosio/config:/mnt/dev/config eosio/eos /bin/bash
 
-#nodeos run
+3. 
 docker run --rm --name eosio -d -p 8888:8888 -p 9876:9876 -v /tmp/work:/work -v /tmp/eosio/data:/mnt/dev/data -v /tmp/eosio/config:/mnt/dev/config eosio/eos /bin/bash -c "nodeos -e -p eosio --http-validate-host 0 --plugin eosio::wallet_api_plugin --plugin eosio::wallet_plugin --plugin eosio::producer_plugin --plugin eosio::history_plugin --plugin eosio::chain_api_plugin --plugin eosio::history_api_plugin --plugin eosio::http_plugin -d /mnt/dev/data --config-dir /mnt/dev/config --http-server-address=0.0.0.0:8888 --access-control-allow-origin=* --contracts-console "
 
+
 #nodeos cmd
+1. default
+nodeos -e -p eosio --http-validate-host 0 2>>test.log &
+
+2. --plugin, -d, --config-dir
+nodeos -e -p eosio --http-validate-host 0 --plugin eosio::wallet_api_plugin --plugin eosio::chain_api_plugin --plugin eosio::history_api_plugin -d /mnt/dev/data --config-dir /mnt/dev/config 2>>test.log &
+
+3.
 nodeos -e -p eosio --http-validate-host 0 --plugin eosio::wallet_api_plugin --plugin eosio::wallet_plugin --plugin eosio::producer_plugin --plugin eosio::history_plugin --plugin eosio::chain_api_plugin --plugin eosio::history_api_plugin --plugin eosio::http_plugin -d /mnt/dev/data --config-dir /mnt/dev/config --http-server-address=0.0.0.0:8888 --access-control-allow-origin=* --contracts-console 2>> nodeos.log &
+
+#alias
+alias cleos=docker exec -it eosio /opt/eosio/bin/cleos --wallet-url http://localhost:8888
 
 # ubuntu, nginx run
 docker run --name ubuntu -it -p 22:22 ubuntu /bin/bash
 docker run --name web -v /c/Users/hyungg/work:/usr/share/nginx/html:ro -d -p 8081:80 nginx
 
-#alias
-alias cleos=docker exec -it eosio /opt/eosio/bin/cleos --wallet-url http://localhost:8888
+
 
 
 
