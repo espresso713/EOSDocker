@@ -1,1 +1,1 @@
-docker run --rm --name eosio -p 8888:8888 -p 9876:9876 -it eosio:1.0 /bin/bash
+docker run --rm --name eosio -p 8888:8888 -p 9876:9876 -p 8889:22 -it eosio:dev /bin/bash

@@ -26,6 +26,15 @@ alias cleos=docker exec -it eosio /opt/eosio/bin/cleos --wallet-url http://local
 docker run --name ubuntu -it -p 22:22 ubuntu /bin/bash
 docker run --name web -v /c/Users/hyungg/work:/usr/share/nginx/html:ro -d -p 8081:80 nginx
 
+#tutorial
+nodeos -e -p eosio --plugin eosio::chain_api_plugin --plugin eosio::history_api_plugin --http-validate-host 0 2>> /eos_log/nodeos.log &
+alias cleos='/opt/eosio/bin/cleos --wallet-url http://127.0.0.1:8899'
+#keosd --http-server-address=127.0.0.1:8899 &
+
+esoio account
+EOS6MRyAjQq8ud7hVNYcfnVPJqcVpscN5So8BhtHuGYqET5GDW5CV
+5KQwrPbwdL6PhXujxW37FSSQZ1JiwsST4cqQzDeyXtP79zkvFD3
+
 
 
 

@@ -1,2 +1,2 @@
-docker rmi -f eosio:1.0
-docker build -t eosio:1.0 .
+docker rmi -f eosio:dev
+docker build -t eosio:dev .
