@@ -1,0 +1,48 @@
+
+cleos set account permission alice active '{
+	"threshold": 1,
+	"keys": [{"key": "EOS7ijWCBmoXBi3CgtK7DJxentZZeTkeUnaSDvyro9dq7Sd1C3dC4","weight": 1}],
+	"accounts": [{"permission":{"actor":"dice","permission":"active"},"weight":1}]
+}' owner -p alice
+
+mymultisig11 - a multisig account we will configure, 1000 EOS balance
+partner11111 - Bob’s personal account, 100 EOS balance
+partner22222 - Joe’s personal account
+partner33333 - Dave’s personal account
+
+-active 
+cleos set account permission mymultisig11 active 
+'{
+	"threshold":2,
+	"keys":[],
+	"accounts":[{"permission":{"actor":"partner11111","permission":"active"},"weight":1},{"permission":{"actor":"partner22222","permission":"active"},"weight":1},{"permission":{"actor":"partner33333","permission":"active"},
+	"weight":1}],"waits":[]
+}' owner -p mymultisig11@owner
+
+He specifies the active permission for each individual account so that their respective owner keys aren’t required
+by using accounts the account owners are given the flexibility the update their keys and authority structure without having to update the mymultisig11 authorities
+
+-owner
+cleos set account permission mymultisig11 owner '{
+	"threshold":2,
+	"keys":[],
+	"accounts":[{"permission":{"actor":"partner11111","permission":"owner"},"weight":1},{"permission":{"actor":"partner22222","permission":"owner"},"weight":1},{"permission":{"actor":"partner33333","permission":"owner"},"weight":1}],
+	"waits":[]
+}' -p mymultisig11@owner
+
+ Once the ownership authority has changed to a multisig format Bob will require his team to participate whenever they need to change any additional authorities in the future
+
+-test
+The other team members may review and approve or unapprove the transaction
+
+cleos multisig propose payme '[{"actor": "partner22222", "permission": "active"},{"actor": "partner33333", "permission": "active"}]' 
+							 '[{"actor": "mymultisig11", "permission": "active"}]' 
+							 eosio.token transfer '{"from":"mymultisig11", "to":"partner11111", "quantity":"25.0000 SYS", "memo":"Pay partner11111 some money"}' 
+							 -p partner11111@active
+
+cleos multisig review partner11111 payme -p partner22222@active		
+
+cleos multisig approve partner11111 payme '{"actor": "partner22222", "permission": "active"}' -p partner22222@active	
+cleos multisig approve partner11111 payme '{"actor": "partner33333", "permission": "active"}' -p partner33333@active		
+
+cleos multisig exec partner11111 payme -p partner11111@active		 

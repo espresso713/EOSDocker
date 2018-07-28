@@ -1,0 +1,1 @@
+/usr/sbin/sshd && /work/test/sed.sh && /work/test/pre-work.sh && /work/test/build.sh

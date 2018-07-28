@@ -1,0 +1,1 @@
+tail -100f /eos_log/nodeos.log

@@ -1,0 +1,1 @@
+sed -i 's/\r$//' /work/test/build.sh && sed -i 's/\r$//' /work/test/pre-work.sh
