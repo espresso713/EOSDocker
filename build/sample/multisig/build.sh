@@ -28,4 +28,9 @@ cleos multisig exec partner11111 payme -p partner11111@active
 
 #echo -e "\033[0;34m"cleos get currency balance eosio.token"\033[0m"
 #cleos get currency balance eosio.token partner11111
+#cleos get currency balance eosio.token mymultisig11
 
+#transfer : p0 -> p1, p2, p3, p4
+#2/3 : p0(p1, p2, p3) 
+#proposal - p0, p1, p2, p3, p4
+#executor - p0, p1, p2, p3, p4
